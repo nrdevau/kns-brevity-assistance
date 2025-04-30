@@ -1,0 +1,41 @@
+
+Can extract dates, checklist item names and completed status from each client - scraped in JS
+
+
+API Request may be easier
+
+## Navigate to kns.brevity.com.au/#list/client
+# extract network request from https://kns.brevity.com.au/api/DynamicForm/GetViewData?page=0&perPage=50&search=&sortCol=0&sortDir=asc&tableName=client&viewId=34&filter=
+
+
+
+# can brute force the request to work out necessary cookies
+```
+curl 'https://kns.brevity.com.au/api/DynamicForm/GetViewData?page=0&perPage=50&search=&sortCol=0&sortDir=asc&tableName=client&viewId=34&filter=' \
+  -H 'accept: application/json, text/javascript, */*; q=0.01' \
+  -H 'accept-language: en-GB,en-US;q=0.9,en;q=0.8' \
+  -H 'cache-control: no-cache' \
+  -b '_gcl_au=1.1.1090545242.1744315509; hubspotutk=5cf351e2de208c187898162136f30b23; __hstc=123117332.5cf351e2de208c187898162136f30b23.1744315511023.1744321747367.1745782707868.3; _gid=GA1.3.1228694720.1746040531; _uetsid=7af3ee2025f711f0bf8f7b0be3860734; _uetvid=1a706dd0164711f0a02d87107010ad76; _ga=GA1.1.1851276246.1744315511; _ga_WL2FBKHJ7K=GS1.1.1746040531.4.1.1746042230.60.0.0; UserTimeOffset=+10:0; ASP.NET_SessionId=wsa4zimeht3yx3x3bbfeuvpb; __RequestVerificationToken=pjvBx3brzllBhPDmN-pZx7vpb4SVnCK1860MbbuhXxXiu25FNgG4Gt3GtQnKXBQDjNlZfWpn_m21luYs1KEREKaPvERGzOtMNl1o8GjME8E1; .AspNet.ApplicationCookie=hpOAz9mxhdbf4_C8uoBIMbNHsPAD4NLCOPanq_ngtprq0ayfrOtCuih4oVWaNuQxPuPbbt3CCHMKBH1aQoOgfL0ypLMbtNfjBawTBXCXF6_ZsH4cVfERTc18skL0trOAqLXqY2eD0gMcgYmewW4Vu2kx_nCBRXXR-5B2nJ08W_KdvpHcY0bAzKMHtEP9Qy1N9m6o5sExS7JZoK5Nj3GMIrPylsGVTxT_4QZfVuoycSim4bXaHAfTLe5lhXL5soVVL-d46hICWV0DstzINwEXS7Fgwy2iam4RMt4R6cJU7-NwquVt-v5kvqoNh7K1fMbtuwvOevQkBPIUPkUKA1isrCsD-mOEWxPTDDhpqC91ED9zvMovYRrooMnev3GrTyrMs_OY0qPPZjiOi9iuKG6VgTTVhuI6_DNRlJJXFGSIjC7WENlgcrQQQz0eq2eLbEM_pjlv6QVyKQrDjwmCN5HcZjKr9jPsgMCbPFWpciSzapJQuPW-7sEb753KMDSt8hz1' \
+  -H 'pragma: no-cache' \
+  -H 'priority: u=1, i' \
+  -H 'referer: https://kns.brevity.com.au/' \
+  -H 'sec-ch-ua: "Google Chrome";v="135", "Not-A.Brand";v="8", "Chromium";v="135"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Linux"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: same-origin' \
+  -H 'user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36' \
+  -H 'x-requested-with: XMLHttpRequest'
+```
+
+
+jq -r '.aaData[] | [.primaryid, .name] | join(": ")' clients.json
+
+# loop list of output to get each clients id
+
+curl 'https://kns.Brevity.com.au/api/service/GetClientChecklistItems?clientId=${clientId}' -b 'takenfromvalidsessioninbrowser' -H 'referer: https://kns.brevity.com.au/' | jq
+
+build list of expired, expiring and completed checklist items
+
+
