@@ -97,7 +97,6 @@ if (__NRDEV__.brevity.clientChecklist.data.present) {
           <td>${elem.expiry}</td>
           <td>
           <i class="fa fa-check-circle" title="Ok" style="color:green"></i>
-          SMS - Jess
           </td>
           <td>
               <a href="${notifyEndpoint(elem, index)}">
