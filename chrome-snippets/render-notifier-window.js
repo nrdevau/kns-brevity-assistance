@@ -53,7 +53,7 @@
         if (window.__NRDEV__.brevity.clientChecklist.data.missing) {
             expiredHtml =
                 `<h3>Expired Checklist Items</h3>
-    <table class="table">
+    <table class="table table-striped">
       <caption>The following checklist items need to be actioned</caption>
       <thead>
         <tr>
@@ -98,7 +98,7 @@
         if (window.__NRDEV__.brevity.clientChecklist.data.present) {
             presentHtml =
                 `<h3>Present Checklist Items</h3>
-    <table class="table">
+    <table class="table table-striped">
       <thead>
         <tr>
           <th>#</th>
@@ -131,11 +131,14 @@
                     presentHtml += `</table>`;
                 }
 
-                                                                              let mainContent =
-                                                                              `<div class="container">
-    <h2>Kylie's Automated Assistant</h2>
-    ${expiredHtml}
-        ${presentHtml}
+    let mainContent =
+        `<div class="container container-fluid">
+           <div class="d-flex align-items-center p-5">
+             <img alt="" src="https://nrdev.au/images/logos/kns.png">
+             <h2 class="px-3">Kylie's Automated Assistant</h2>
+           </div>
+           ${expiredHtml}
+           ${presentHtml}
         </div>`;
 
         const myContent =
